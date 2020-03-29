@@ -1,5 +1,5 @@
-const { app, BrowserWindow } = require('electron')
-
+const { app, BrowserWindow, Menu } = require('electron')
+const shell = require('electron').shell
 function createWindow () {
   // Create the browser window.
   const win = new BrowserWindow({
@@ -18,6 +18,35 @@ function createWindow () {
 
 
   //Menu
+  
+  var menu = Menu.buildFromTemplate([
+    {
+        label:"Menu",
+        submenu:[
+            {label:'Adjust Notification value'},
+            {type:"separator"},
+            {
+                label: 'market coin cap',
+                click(){
+                    shell.openExternal('https://coinmarketcap.com')
+                }
+            },
+            {type:"separator"},
+            {
+                label: "exit",
+                click(){
+                    app.quit();
+                }
+
+            }
+        ]
+    },
+    {
+        label:"Info"
+    }
+])
+Menu.setApplicationMenu(menu);
+
 }
 
 // This method will be called when Electron has finished
